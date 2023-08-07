@@ -1,0 +1,34 @@
+package com.ict.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.model.service.GuestBookService;
+import com.ict.model.vo.GuestBookVO;
+
+@Controller
+public class GuestBookController {
+	// 일처리가(DB) 있으면 서비스로 가자!
+	@Autowired
+	private GuestBookService guestBookService;
+
+	public GuestBookService getGuestbookService() {
+		return guestBookService;
+	}
+
+	public void setGuestbookService(GuestBookService guestBookService) {
+		this.guestBookService = guestBookService;
+	}
+	@GetMapping("/guestbook_list.do")
+	public ModelAndView getguestbookList() {
+		ModelAndView mv = new ModelAndView("guestbook/list");
+		List<GuestBookVO> list = guestbookService.getguestbookList();
+		mv.addObject("list", list);
+		return mv;
+	}
+	
+}

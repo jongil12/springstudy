@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- 세터를 이용하기에 property 를 쓴다 -->
+		<!-- 오라클 연결정보 
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>	 
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>	 
+		<property name="username" value="c##JIP"></property>	 
+		<property name="password" value="1111"></property>	 
+		 -->
+		 <!--  마리아db 연결정보 -->
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>	 
+		<property name="url" value="jdbc:mariadb://localhost:3306/ictedu"></property>	 
+		<property name="username" value="jip"></property>	 
+		<property name="password" value="1111"></property>	 
+	 </bean>
+	 
+	 <!--  mybatist 의 config 역할(오라클과 mybatis 연결, mapper 위치) -->
+	  <!-- id 는 클래스 이름을 같이 쓰면서 첫글자를 소문자로 바꿔준다. -->
+	 <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- 네임과 참조 변수이름이 같으면 오토와이어드가 되어서 이름을 맞춘다. -->
+	 <property name="dataSource" ref="dataSource" /> <!-- 오라클 연결정보를 가져왔다 -->
+	 <!--  오라클 정보를 마이바티스에서 받기위한 이름이다. -->
+	 <!--  맵퍼위치 잡아서 하기 -->
+	 <!-- <property name="mapperLocations" value="classpath*:ex09_db/mapper.xml" /> -->
+	 <!-- mybatis-config.xml 의 위치는 src/main/resources/mybatis-config -->
+	 <!--  컨피그위치 잡아서 하기 -->
+	 <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	 </bean>
+	 
+	 <!-- DAO에 사용할 SqlSessionTemplate클래스를 객체로 만들자 -->
+	 <!-- 기본생성자가 없어서 id(변수)가 없으면 오류가난다. 생성자에서 값을 넣어주자 -->
+	 <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	 	<constructor-arg ref="sqlSessionFactoryBean" />
+		 </bean>
+	<!-- db 처리 -->
+	<context:annotation-config />
+	<!-- com.ict.* 안에 있는건 다해준다. -->
+	<context:component-scan base-package="com.ict.*" />
+
+	
+		
+</beans>

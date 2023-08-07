@@ -1,0 +1,17 @@
+package com.ict.member.model.service;
+
+import org.springframework.stereotype.Service;
+
+import com.ict.member.model.vo.MemberVO;
+@Service
+public class MemberControllerImpl implements MemberService{
+	
+	
+	@Override
+	public int getMemberAdd(MemberVO m2vo) {
+	
+		return 0;
+	}
+
+	
+}

@@ -1,0 +1,41 @@
+package com.ict.bbs.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.bbs.model.service.BBS_Service;
+import com.ict.bbs.model.vo.BBS_VO;
+
+@Controller
+public class BBS_Controller {
+	
+	@Autowired
+	private BBS_Service bBS_Service;
+	
+	@GetMapping("/bbs_list.do")
+	public ModelAndView bbsList(HttpServletRequest request) {
+		ModelAndView mv= new ModelAndView("bbs/list");
+		List<BBS_VO> bbs_list =bBS_Service.getList();
+		mv.addObject("bbs_list", bbs_list);
+		return mv;
+		
+	}
+	@GetMapping("/bbs_insertForm.do")
+	public ModelAndView bbsInsertForm(HttpServletRequest request) {
+		ModelAndView mv= new ModelAndView("bbs/write");
+		return mv;
+	}
+	
+	@PostMapping("/bbs_insert.do")
+	public ModelAndView bbsInsert(BBS_VO bvo, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("redirect:/");
+		return mv;
+	}
+}

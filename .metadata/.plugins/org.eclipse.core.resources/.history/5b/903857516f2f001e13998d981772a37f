@@ -1,0 +1,19 @@
+package com.ict.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class GuestbookController {
+	
+	private GuestbookService guestbookService;
+
+	public GuestbookService getGuestbookService() {
+		return guestbookService;
+	}
+
+	public void setGuestbookService(GuestbookService guestbookService) {
+		this.guestbookService = guestbookService;
+	}
+	
+	
+}

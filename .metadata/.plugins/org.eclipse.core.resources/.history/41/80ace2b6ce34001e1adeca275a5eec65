@@ -1,0 +1,5 @@
+package com.ict.bbs.model.dao;
+
+public class BBS_DAO {
+
+}

@@ -1,0 +1,47 @@
+package com.ict.model.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+
+import com.ict.model.dao.GuestBookDAO2;
+import com.ict.model.vo.GuestBookVO2;
+
+@Service
+public class GuestBookServiceImpl2 implements GuestBookService2{
+
+	@Autowired
+	private GuestBookDAO2 guestBookDAO2;
+		
+
+	@Override
+	public List<GuestBookVO2> getGuestBook2List() {
+		return guestBookDAO2.getGuestBook2List();
+	}
+
+	@Override
+	public int getGuestBook2Insert(GuestBookVO2 gvo2) {
+		return guestBookDAO2.getGuestBook2Insert(gvo2);
+	}
+
+	@Override
+	public GuestBookVO2 getGuestBook2OneList(String m_idx) {
+		
+		return guestBookDAO2.getGuestBook2OneList(m_idx);
+	}
+
+	@Override
+	public int getGuestBook2Delete(String m_idx) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getGuestBook2Update(GuestBookVO2 gvo2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

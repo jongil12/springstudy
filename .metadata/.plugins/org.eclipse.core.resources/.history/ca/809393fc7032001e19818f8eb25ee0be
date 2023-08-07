@@ -1,0 +1,16 @@
+package com.ict.member.model.service;
+
+import com.ict.member.model.vo.MemberVO;
+
+public interface MemberService {
+	// 회원 가입
+	int getMemberAdd(MemberVO m2vo);
+	
+	// 로그인
+	
+	
+	// 아이디 찾기
+	
+	
+	// 비밀번호 찾기 
+}

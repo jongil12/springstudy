@@ -1,0 +1,32 @@
+package com.ict.member.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.member.model.service.MemberService;
+import com.ict.member.model.vo.MemberVO;
+
+@Controller
+public class MemberController {
+
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	@GetMapping("/member_reg.do")
+	public ModelAndView getMemberRegForm() {
+		return new ModelAndView("members/addForm");
+	}
+	@PostMapping("/member_add.do")
+	public ModelAndView getMemberAdd(MemberVO m2vo) {
+		ModelAndView mv = new ModelAndView("redirect:/");
+		// 패스워드 암호화 하자
+		String pwd = m2vo.get
+		return mv;
+	}
+}

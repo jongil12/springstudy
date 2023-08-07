@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 객체 생성 -->
+	<!-- OracleDAO oracleDAO = new OracleDAO(); -->
+	
+	<!-- 아이디로 해당 객체를 호출 할수 있다. -->
+	<!-- 객체를 만들 클래스의 위치 -->
+	<bean id="oracleDAO" class="ex02_DI.OracleDAO" />
+	<bean id="mysqlDAO" class="ex02_DI.MySQLDAO" />
+	
+	<!-- java 에서 주입하는 방식
+	//생성자를 이용해서 dao 주입
+	public Service(DAO dao) {
+		this.dao = dao;
+	}
+
+	// setter 를 이용하는 방법
+	public void setDao(DAO dao) {
+		this.dao = dao;
+	}
+	 -->
+	 <!-- 의존성 주입(DI) -->
+	 <bean id="service" class="ex02_DI.Service">
+		<!-- 생성자(constructor)를 이용한 방법 참조할때 id를 사용한다. -->	 
+	 	<!-- 먼저 만든 객체를 의존성 주입 하기위해서 ref 속성(참조)을 사용 한다. -->
+		<!-- <constructor-arg ref="mysqlDAO"></constructor-arg> -->
+		
+		<!-- 세터(property)주입과 같은 방법 -->
+		<property name="dao" ref="oracleDAO" />
+	 </bean>
+
+</beans>

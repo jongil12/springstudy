@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bbs">
+  <!--   원글 리스트 
+   <select id="list" resultType="com.ict.db.BVO">
+      select * from bbs_t order by b_idx desc
+   </select>
+    -->
+    <!-- 페이지 처리 1 : 전체 게시물의 수 구하기 -->
+    <select id="count" resultType="int">
+    	select count(*) from bbs_t
+    </select>
+    
+    <!-- 시작번호와 끝번호를 가지고 리스트 구하기 -->
+    <select id="list" parameterType="Map" resultType="com.ict.db.BVO">
+    	select * from(
+    		select rownum r_num, a.*from(
+    	  		select * from bbs_t order by b_idx desc
+    	  	) a
+    	  ) where r_num between #{begin} and #{end}
+    </select>
+   
+   <!--원글 삽입  -->
+   <insert id="insert" parameterType="com.ict.db.BVO">
+   		insert into bbs_t(b_idx,subject,writer,content,f_name,pwd,write_date,hit)
+   		values(bbs_t_seq.nextval, #{subject}, #{writer},#{content},
+   		#{f_name},#{pwd},sysdate, 0)
+   </insert>
+   
+   
+   
+   
+   
+   <!--원글 조회수  업데이트 -->
+   <update id="hit" parameterType="String">
+   	update bbs_t set hit = hit + 1 where b_idx = #{b_idx}
+   </update>
+   
+   <!--원글 상세보기  -->
+   <select id="onelist" parameterType="String" resultType="com.ict.db.BVO">
+   select * from bbs_t where b_idx = #{b_idx}  
+   </select>
+  
+   <!-- 삽입 수정 삭제는 리절트타입없음  -->
+   
+   
+   <!--샵은 받을때, 달러는 보낼떄   -->
+   <!--원글 수정하기  -->
+   <update id="update" parameterType="com.ict.db.BVO">
+   	update bbs_t set subject=#{subject}, writer=#{writer}, content=#{content},
+   	f_name=#{f_name} where b_idx=#{b_idx}
+   </update>
+   
+   
+   <!--원글삭제  -->
+   <delete id="delete" parameterType="String">
+   	delete from bbs_t where b_idx = #{b_idx}
+   </delete>
+   
+   
+   <!--댓글리스트   -->
+   <select id="clist" parameterType="String" resultType="com.ict.db.CVO">
+   	select * from comment_t where b_idx =#{b_idx}
+   </select>
+   
+   <!--댓글 삽입  -->
+   <insert id="cinsert" parameterType="com.ict.db.CVO">
+   insert into comment_t(c_idx,writer,content,b_idx)
+   values( comment_t_seq.nextval, #{writer}, #{content},#{b_idx})
+   
+   </insert>
+   
+   <!--댓글삭제  -->
+   <delete id="cdelete" parameterType="String">
+   	delete from comment_t where c_idx = #{c_idx}
+   </delete>
+   
+   <!-- 원글에 속한 댓글 모두 삭제 -->
+   <delete id="c_all_delete" parameterType="String">
+   	delete from comment_t where b_idx = #{b_idx}
+   </delete>
+</mapper>
+
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 스프링 컨테이너에서 정보를 주는 설정 정보 -->
+	<!-- 오라클 연결 (DMDS 드라이버메니저데이터소스)-->
+	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>	 
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>	 
+		<property name="username" value="c##JIP"></property>	 
+		<property name="password" value="1111"></property>		
+	</bean>
+	
+	<!-- 오라클-mybatis 연결과 mapper 위치 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:com/ict/db/mapper.xml" />
+	</bean>
+	<bean id="session" class="org.mybatis.spring.SqlSessionTemplate">
+	 	<constructor-arg ref="sqlSessionFactory" />
+	 </bean>
+	<bean id="dao" class="com.ict.db.DAO">
+		<property name="session" ref="session" />
+	</bean>
+</beans>

@@ -1,0 +1,32 @@
+package com.ict.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.model.service.MembersService;
+
+@Controller
+public class MembersController {
+	@Autowired
+	private MembersService membersService;
+	
+	
+	public MembersService getMembersService() {
+		return membersService;
+	}
+
+
+	public void setMembersService(MembersService membersService) {
+		this.membersService = membersService;
+	}
+
+
+	@GetMapping("/members_list.do")
+	public ModelAndView getMembersList() {
+		ModelAndView mv = new ModelAndView("members/list");
+		
+		return mv;
+	}
+}

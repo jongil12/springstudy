@@ -1,0 +1,40 @@
+1690850883106	Delete element
+1690850899889	Delete element
+1690850908230	Delete element
+1690850914612	Delete element
+1690850917795	Delete element
+1690851096293	Delete element
+1690851507899	Rename type 'GuestbookVO'
+1690851517323	Rename type 'GuestbookService'
+1690851522123	Rename type 'GuestbookServiceImpl'
+1690851643149	Rename type 'GuestbookController'
+1690851775488	Delete element
+1690852215095	Rename type 'GuestbookDAO'
+1690854797130	Rename resource 'CSS'
+1690854800772	Rename resource 'JS'
+1690854889171	Delete element
+1690854901860	Delete element
+1690884489671	Delete element
+1690947450350	Rename resource 'write.jsp'
+1690947520792	Copy file
+1690947529995	Delete element
+1690947532854	Copy file
+1690947729881	Move files
+1690947736937	Copy file
+1690947784728	Copy file
+1690947808353	Rename resource 'write2.jsp'
+1690947817207	Move file
+1690947822155	Copy file
+1690947839034	Copy compilation unit
+1690947844195	Copy compilation unit
+1690947850966	Copy compilation unit
+1690947853618	Copy compilation unit
+1690947857805	Copy compilation unit
+1690947879894	Delete element
+1690948206800	Copy file
+1690948446172	Rename resource 'guestbook-mapper2.xml'
+1690948498227	Copy compilation unit
+1691111990789	Rename type 'membercontroller'
+1691111996730	Rename type 'Membercontroller'
+1691114024472	Copy file
+1691114301436	Rename type 'MemberControllerImpl'

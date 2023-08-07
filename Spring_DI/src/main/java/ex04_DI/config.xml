@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="age" class="ex04_DI.Age" />
+	
+	<bean id="mp1" class="ex04_DI.MyProcess">
+		<constructor-arg name="name" value="개똥이" />
+		<constructor-arg name="jumin" value="980808" />
+		<constructor-arg name="gender" value="2" />
+		<constructor-arg name="age" ref="age" />
+	</bean>
+	
+	<bean id="mp2" class="ex04_DI.MyProcess">
+		<property name="name" value="소똥이" />
+		<property name="jumin" value="080101" />
+		<property name="gender" value="3" />
+		<property name="age" ref="age" />
+	</bean>
+
+</beans>

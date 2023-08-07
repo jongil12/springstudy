@@ -1,0 +1,44 @@
+package com.ict.model.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ict.model.dao.GuestbookDAO;
+import com.ict.model.vo.GuestBookVO;
+
+@Service
+public class GuestBookServiceImpl implements GuestBookService {
+	// DAO »£√‚
+	
+	@Autowired
+	private GuestbookDAO guestbookDAO;
+	
+	
+
+	public GuestbookDAO getGuestbookDAO() {
+		return guestbookDAO;
+	}
+	public void setGuestbookDAO(GuestbookDAO guestbookDAO) {
+		this.guestbookDAO = guestbookDAO;
+	}
+	@Override
+		public List<GuestBookVO> guestbookList() {
+		List<GuestBookVO> list = guestbookDAO.guestbookList();
+		return list;
+		}
+	@Override
+	public int guestbookAdd(GuestBookVO mvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+}
+
+
+
+
+
+

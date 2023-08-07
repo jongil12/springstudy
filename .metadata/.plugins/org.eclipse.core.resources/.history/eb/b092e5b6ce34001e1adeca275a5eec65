@@ -1,0 +1,5 @@
+package com.ict.bbs.model.service;
+
+public class BBS_Service {
+
+}

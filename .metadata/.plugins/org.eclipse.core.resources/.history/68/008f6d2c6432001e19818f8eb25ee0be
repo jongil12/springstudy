@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function go_members() {
+		location.href = "/members_list.do";
+	}
+	function go_guestbook() {
+		location.href = "/guestbook_list.do";
+	}
+	function go_guestbook2() {
+		location.href = "/guestbook2_list.do";
+	}
+</script>
+</head>
+<body>
+<div>
+	<table>
+	<thead>
+	<button onclick="go_members()">Members</button>
+	<button onclick="go_guestbook()">GuestBook</button>
+	<button onclick="go_guestbook2()">GuestBook2</button>
+	</thead>
+	<tbody></tbody>
+		<form action="/" method="post">
+		<tr align="center">
+			<p> ID : <input type="text" name="m_id" size="20" required /></p>
+			<p> PW : <input type="password" name="m_pw" size="20" required /></p>
+		</tr>
+		</form>
+		</tbody>
+		<tfoot>
+			<tr align="center">
+				<td colspan="2">
+					<%-- method="post" enctype="multipart/form-data"은 hidden을 사용불가 --%>
+					<%-- <input type="hidden" value="write_ok" name="cmd"> --%> 
+					<input type="submit" value="로그인" />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+					<input type="button" value="회원가입" onclick="reg_go()" />
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="m1" class="ex03_DI.MyProcess" />
+	
+	<!-- 생성자 이용 -->
+	<bean id="m2" class="ex03_DI.MyProcess" >
+		<constructor-arg name="name" value="태권브이" />
+		<constructor-arg name="age" value="74" />
+	</bean>
+	<!-- setter 이용 -->
+	<bean id="m3" class="ex03_DI.MyProcess" >
+		<property name="name" value="아수라백작" />
+		<property name="age" value="108" />
+	</bean>
+</beans>

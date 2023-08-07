@@ -1,0 +1,5 @@
+package com.ict.model.vo;
+
+public class MembersVO {
+
+}

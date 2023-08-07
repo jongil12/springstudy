@@ -1,0 +1,176 @@
+package com.ict.controller;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.model.service.GuestBookService2;
+import com.ict.model.vo.GuestBookVO2;
+
+@Controller
+public class GuestBookController2 {
+	// 일처리가(DB) 있으면 서비스로 가자!
+	@Autowired
+	private GuestBookService2 guestBookService2;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@GetMapping("/guestbook2_list.do")
+	public ModelAndView getGuestbook2List() {
+		ModelAndView mv = new ModelAndView("guestbook2/list");
+		List<GuestBookVO2> glist = guestBookService2.getGuestBook2List();
+		mv.addObject("glist", glist);
+		return mv;
+	}
+
+	@GetMapping("/guestbook2AddForm.do")
+	public ModelAndView getGuestBook2AddForm() {
+		return new ModelAndView("guestbook2/write2");
+	}
+
+	@PostMapping("/guestbook2_insert.do")
+	public ModelAndView getGuestBook2Insert(GuestBookVO2 gvo2, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("redirect:/guestbook2_list.do");
+		if (!gvo2.getFile().isEmpty()) {
+
+			try {
+				String path = request.getSession().getServletContext().getRealPath("/resources/images");
+				// 파라미터로 받은 file 을 이용해서 DB에 저장할 f_name 을 채워주자
+				// 그러나 같은 이름의 파일이름이면 안되므로 파일 이름을 변경해야 되므로 UUID를 이용해서
+				// DB 에 저장할 이름을 변경하자
+
+				UUID uuid = UUID.randomUUID();
+				String f_name = uuid.toString() + "_" + gvo2.getFile().getOriginalFilename();
+				gvo2.setF_name(f_name);
+				// 실제 이미지 올리는 작업
+				byte[] in = gvo2.getFile().getBytes();
+				// 이미지 /resources/images 에 저장하기
+				File out = new File(path, f_name);
+				FileCopyUtils.copy(in, out);
+
+			} catch (Exception e) {
+				System.out.println(e);
+				return null;
+			}
+		}
+		// DB에 저장하기
+
+		// 패스워드를 암호화 하자
+		String pwd = passwordEncoder.encode(gvo2.getPwd());
+		gvo2.setPwd(pwd);
+
+		int res = guestBookService2.getGuestBook2Insert(gvo2);
+		if (res > 0) {
+			return mv;
+		} else {
+			return null;
+		}
+	}
+
+	// a링크는 겟방식guestbook_onelist.do
+	// idx는 onelist.jsp 에서도 사용하기때문에 넘겨야 한다.
+	@GetMapping("/guestbook2_onelist.do")
+	public ModelAndView getGuestBook2OneList(@ModelAttribute("m_idx") String m_idx) {
+		ModelAndView mv = new ModelAndView("guestbook2/onelist2");
+		GuestBookVO2 gvo2 = guestBookService2.getGuestBook2OneList(m_idx);
+		mv.addObject("gvo2", gvo2);
+		return mv;
+	}
+
+	@PostMapping("/guestbook2_Delete.do")
+	public ModelAndView getGuestBook2DeleteOK(String m_idx) {
+		ModelAndView mv = new ModelAndView("redirect:/guestbook2_list.do");
+
+		int result = guestBookService2.getGuestBook2Delete(m_idx);
+		return mv;
+
+	}
+
+	
+
+	@GetMapping("/guestbook2_down.do")
+	public void getFileDown(String f_name, HttpServletRequest request, HttpServletResponse response) {
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/" + f_name);
+		try {
+			String r_path = URLEncoder.encode(path, "utf-8");
+			// 브라우저 에 저장
+			response.setContentType("application/x-msdownload");
+			response.setHeader("Content-Disposition", "attachment; filename=" + r_path);
+
+			// 실제 저장
+			File file = new File(new String(path.getBytes()));
+			FileInputStream in = new FileInputStream(file);
+			OutputStream out = response.getOutputStream();
+
+			// 파일 복사(upload)
+			FileCopyUtils.copy(in, out);
+		} catch (Exception e) {
+
+		}
+	}
+
+	// 수정하기
+	@PostMapping("/guestbook2_UpdateForm.do")
+	public ModelAndView getGuestBook2UpdateForm(String m_idx) {
+		ModelAndView mv = new ModelAndView("guestbook2/update2");	
+		GuestBookVO2 gvo2 = guestBookService2.getGuestBook2OneList(m_idx);
+		mv.addObject("gvo2", gvo2);
+		
+				
+		return mv;
+
+	}
+
+	// 삭제 하기
+	@PostMapping("/guestbook2_DeleteForm.do")
+	public ModelAndView getGuestbook2DeleteForm(@ModelAttribute("m_idx") String m_idx) {
+		ModelAndView mv = new ModelAndView("guestbook2/delete");
+		// jsp 실제 삭제할 때 비밀번호를 검사하기 위해서 getGuestbookOneList()를 실행하자
+		GuestBookVO2 gvo2 = guestBookService2.getGuestBook2OneList(m_idx);
+		mv.addObject("gvo2", gvo2);
+		return mv;
+	}
+	
+	@PostMapping("/guestbook2_Update.do")
+	public ModelAndView getGuestBook2Update(GuestBookVO2 gvo2) {
+		ModelAndView mv = new ModelAndView("redirect:/guestbook2_onelist.do?m_idx=" + gvo2.getM_idx());
+		// 비밀번호가 맞는지 틀린지 검사 하자.(비밀번호가 암호로 되어 있다.)
+		// jsp 에서 암호 입력 한것
+		String cpwd = gvo2.getPwd();
+					
+		// DB 에서 암호 얻기
+		GuestBookVO2 gvo3 = guestBookService2.getGuestBook2OneList(gvo2.getM_idx());
+		String dbwd = gvo3.getPwd();
+		
+		// passwordEncoder.matches(암호화되지 않은것, 암호화 된것)
+		if(! passwordEncoder.matches(cpwd,dbwd)) {
+			mv.setViewName("/guestbook2/update");
+			mv.addObject("pwchk","fail");
+			return mv;
+		}else {
+			
+			return mv;
+		}
+		
+
+	}
+
+}

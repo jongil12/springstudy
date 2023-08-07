@@ -1,0 +1,6 @@
+package com.ict.member.model.vo;
+
+public class MemberVO {
+	private String m_id, m_pw, m_name, m_age, m_reg;
+
+}

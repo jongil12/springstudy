@@ -1,0 +1,5 @@
+package com.ict.model.dao;
+
+public class MembersDAO {
+
+}

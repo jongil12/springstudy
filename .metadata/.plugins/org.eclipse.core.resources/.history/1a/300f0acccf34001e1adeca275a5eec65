@@ -1,0 +1,24 @@
+package com.ict.bbs.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.bbs.model.service.BBS_Service;
+
+@Controller
+public class BBS_Controller {
+	
+	@Autowired
+	private BBS_Service bBS_Service; 
+	@GetMapping
+	public ModelAndView bbsList(HttpServletRequest request) {
+		ModelAndView mv= new ModelAndView("bbs/list");
+		return mv;
+		
+	}
+
+}

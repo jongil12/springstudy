@@ -1,0 +1,5 @@
+package com.ict.member.model.service;
+
+public interface MemberService {
+
+}

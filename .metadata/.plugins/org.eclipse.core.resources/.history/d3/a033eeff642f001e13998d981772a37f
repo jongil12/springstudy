@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	table{
+		width: 600px; border-collapse: collapse;text-align: center; margin: auto;
+	}
+	table, th,td{
+	border: 1px solid black; padding: 3px;
+	}
+	h1{text-align: center;}
+</style>
+<script type="text/javascript">
+	function addMember() {
+		location.href="/members_addForm.do";
+	}
+</script>
+</head>
+<body>
+	<h2>회원 가입</h2>
+	<div>
+		<form method="post">
+		<table>
+			<tbody>
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" name=""></td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+</body>
+</html>

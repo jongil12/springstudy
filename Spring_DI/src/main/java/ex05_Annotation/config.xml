@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- spring annotation : xml에서 작성한 내용을 
+							 코딩을 작성하는 과정에 annotation을 이용해서 작성한다.
+							 
+		-일반적인 클래스를 객체로 만들때 사용하는 annotation
+		@Component : 가장 상위 클래스
+		@Service : 비즈니스 로직을 처리하는 클래스에 사용 (서비스 클래스)
+		@Repository : 데이터 베이스 연동 처리하는 DAO 클래스에서 사용
+		@Controller : MVC 패턴 중 컨트롤러 클래스에 사용 
+	 -->
+	<!-- annotation 지정 방법
+		1. Namespaces에가서 context 선택
+		2. <context:annotation-config />
+		3. <context:component-scan base-package="위치지정" /> 
+	 -->
+	 <context:annotation-config />
+	 <context:component-scan base-package="ex05_Annotation" />
+	 
+	 <!--  @Autowired : 변수이름과 참조되는 클래스의 id가 같아야 한다.
+	 		<bean id="oracleDAO" class="ex02_DI.OracleDAO" />
+			<bean id="mysqlDAO" class="ex02_DI.MySQLDAO" />
+			<bean id="service" 
+	  -->
+</beans>
